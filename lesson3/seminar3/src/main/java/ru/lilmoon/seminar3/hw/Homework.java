@@ -1,4 +1,4 @@
-package ru.lolmoon.seminar3.hw;
+package ru.lilmoon.seminar3.hw;
 
 public class Homework {
 

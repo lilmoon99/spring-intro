@@ -1,4 +1,4 @@
-package ru.lolmoon.seminar3;
+package ru.lilmoon.seminar3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

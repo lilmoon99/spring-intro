@@ -1,4 +1,4 @@
-package ru.lolmoon.seminar3.api;
+package ru.lilmoon.seminar3.api;
 
 import lombok.Data;
 

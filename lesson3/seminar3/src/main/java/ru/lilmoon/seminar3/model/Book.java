@@ -1,4 +1,4 @@
-package ru.lolmoon.seminar3.model;
+package ru.lilmoon.seminar3.model;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
