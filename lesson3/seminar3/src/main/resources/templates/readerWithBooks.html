@@ -1,0 +1,27 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+</head>
+<body>
+<h1>Books</h1>
+
+<table>
+    <tr>
+        <th>Reader's ID</th>
+        <th>Name</th>
+        <th>Book</th>
+    </tr>
+    <tr th:each="reader:${readersWithBooks}">
+        <td th:text="${reader.getId()}"></td>
+        <td th:text="${reader.getName()}"></td>
+        <td th:text="${reader.getBookName()}"></td>
+    </tr>
+</table>
+</body>
+</html>
