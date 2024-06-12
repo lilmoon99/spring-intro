@@ -2,10 +2,14 @@ package ru.lilmoon.seminar3.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.lilmoon.seminar3.entity.IssueEntity;
+import ru.lilmoon.seminar3.entity.ReaderEntity;
 import ru.lilmoon.seminar3.model.Issue;
 import ru.lilmoon.seminar3.model.Reader;
 import ru.lilmoon.seminar3.repository.IssueRepository;
 import ru.lilmoon.seminar3.repository.ReaderRepository;
+import ru.lilmoon.seminar3.service.IssueServiceImpl;
+import ru.lilmoon.seminar3.service.ReaderServiceImpl;
 
 import java.util.List;
 
@@ -13,37 +17,35 @@ import java.util.List;
 @RequestMapping("/reader")
 public class ReaderController {
     @Autowired
-    private final ReaderRepository readerRepository;
-    @Autowired
-    private final IssueRepository issueRepository;
+    private final ReaderServiceImpl readerService;
 
-    public ReaderController(ReaderRepository readerRepository,IssueRepository issueRepository) {
-        this.readerRepository = readerRepository;
-        this.issueRepository = issueRepository;
+
+    public ReaderController(ReaderServiceImpl readerService) {
+        this.readerService = readerService;
     }
 
     @GetMapping
-    public List<Reader> getAllReaders(){
-        return readerRepository.getAllReaders();
+    public List<ReaderEntity> getAllReaders() {
+        return readerService.getAllReaders();
     }
 
     @GetMapping("/{id}")
-    public Reader getReaderById(@PathVariable long id){
-        return readerRepository.getReaderById(id);
+    public ReaderEntity getReaderById(@PathVariable long id) {
+        return readerService.getById(id);
     }
 
     @PostMapping
-    public Reader addReader(@RequestBody Reader reader){
-        return readerRepository.addReader(reader);
+    public ReaderEntity addReader(@RequestBody ReaderEntity reader) {
+        return readerService.createReader(reader);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReaderById(@PathVariable long id){
-        readerRepository.deleteReaderById(id);
+    public void deleteReaderById(@PathVariable long id) {
+        readerService.deleteReaderById(id);
     }
 
     @GetMapping("/{id}/issue")
-    public List<Issue> getIssuesByReaderId(@PathVariable long id){
-        return issueRepository.getIssuesByReaderId(id);
+    public List<IssueEntity> getIssuesByReaderId(@PathVariable long id) {
+        return readerService.getIssuesByReaderId(id);
     }
 }

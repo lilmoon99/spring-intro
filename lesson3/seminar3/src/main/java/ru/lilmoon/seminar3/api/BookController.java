@@ -2,8 +2,10 @@ package ru.lilmoon.seminar3.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.lilmoon.seminar3.entity.BookEntity;
 import ru.lilmoon.seminar3.model.Book;
 import ru.lilmoon.seminar3.repository.BookRepository;
+import ru.lilmoon.seminar3.service.BookServiceImpl;
 
 import java.util.List;
 
@@ -17,29 +19,29 @@ import java.util.List;
 @RequestMapping("/book")
 public class BookController {
     @Autowired
-    private final BookRepository repository;
+    private final BookServiceImpl service;
 
-    public BookController(BookRepository repository) {
-        this.repository = repository;
+    public BookController(BookServiceImpl service) {
+        this.service = service;
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return repository.getAllBook();
+    public List<BookEntity> getAllBooks() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable long id) {
-        return repository.getBookById(id);
+    public BookEntity getBookById(@PathVariable long id) {
+        return service.getById(id);
     }
 
     @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return repository.addBook(book);
+    public BookEntity addBook(@RequestBody BookEntity book) {
+        return service.createBook(book);
     }
 
     @DeleteMapping("/{id}")
     public void deleteBookById(@PathVariable long id) {
-        repository.deleteBookById(id);
+        service.deleteBook(id);
     }
 }

@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.lilmoon.seminar3.entity.IssueEntity;
 import ru.lilmoon.seminar3.model.BookLimitExceededException;
 import ru.lilmoon.seminar3.model.Issue;
 import ru.lilmoon.seminar3.repository.IssueRepository;
-import ru.lilmoon.seminar3.service.IssuerService;
+import ru.lilmoon.seminar3.service.IssueServiceImpl;
+import ru.lilmoon.seminar3.service.IssuerServiceImpl;
 
 
 import java.util.List;
@@ -20,21 +22,20 @@ import java.util.NoSuchElementException;
 public class IssuerController {
 
     @Autowired
-    private final IssuerService service;
+    private final IssuerServiceImpl service;
     @Autowired
-    private final IssueRepository repository;
+    private final IssueServiceImpl issueService;
 
-
-    public IssuerController(IssuerService service, IssueRepository repository) {
+    public IssuerController(IssuerServiceImpl service,IssueServiceImpl issueService) {
         this.service = service;
-        this.repository = repository;
+        this.issueService = issueService;
     }
 
     @PostMapping
-    public ResponseEntity<Issue> issueBook(@RequestBody IssueRequest request) {
+    public ResponseEntity<IssueEntity> issueBook(@RequestBody IssueRequest request) {
         log.info("Получен запрос на выдачу: readerId = {}, bookId = {}", request.getReaderId(), request.getBookId());
 
-        final Issue issue;
+        final IssueEntity issue;
         try {
             issue = service.issue(request);
         } catch (NoSuchElementException e) {
@@ -48,22 +49,22 @@ public class IssuerController {
     }
 
     @GetMapping("/{id}")
-    public Issue getIssueById(@PathVariable long id) {
-        return repository.getIssueById(id);
+    public IssueEntity getIssueById(@PathVariable long id) {
+        return issueService.getIssueById(id);
     }
 
     @GetMapping
-    public List<Issue> getActiveIssues() {
-        return repository.getActiveIssues();
+    public List<IssueEntity> getAllIssues() {
+        return issueService.getAll();
     }
 
-    @GetMapping("/history")
-    public List<Issue> getAllIssues() {
-        return repository.getAllIssues();
-    }
+//    @GetMapping("/history")
+//    public List<IssueEntity> getAllIssues() {
+//        return repository.getAllIssues();
+//    }
 
-    @PutMapping("{id}")
-    public void returnBookById(@PathVariable long id) {
-        service.closeIssue(id);
+    @PutMapping("/{id}")
+    public IssueEntity returnBookById(@PathVariable long id) {
+        return service.closeIssue(id);
     }
 }

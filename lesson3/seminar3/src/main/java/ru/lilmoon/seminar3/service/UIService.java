@@ -31,29 +31,29 @@ public class UIService {
         this.readerRepository = readerRepository;
     }
 
-    public Model showAllBooks(Model model){
-        model.addAttribute("books",bookRepository.getAllBook());
-        return model;
-    }
-
-    public Model showAllReaders(Model model){
-        model.addAttribute("readers",readerRepository.getAllReaders());
-        return model;
-    }
-
-    public Model showAllIssues(Model model){
-        model.addAttribute("issues",issueRepository.getAllIssues());
-        return model;
-    }
-
-    public Model showIssuesBooksByReaderId(long id,Model model){
-        List<Issue> issueList = issueRepository.getActiveIssues().stream().filter(it -> Objects.equals(it.getReaderId(), id)).toList();
-        List<UserFriendlyReaderUI> list = new ArrayList<>();
-        for (Issue issue : issueList) {
-            UserFriendlyReaderUI reader = new UserFriendlyReaderUI(issue.getReaderId(),readerRepository.getReaderById(id).getName(),bookRepository.getBookById(issue.getBookId()).getName());
-            list.add(reader);
-        }
-        model.addAttribute("readersWithBooks",list);
-        return model;
-    }
+//    public Model showAllBooks(Model model){
+//        model.addAttribute("books",bookRepository.getAllBook());
+//        return model;
+//    }
+//
+//    public Model showAllReaders(Model model){
+//        model.addAttribute("readers",readerRepository.getAllReaders());
+//        return model;
+//    }
+//
+//    public Model showAllIssues(Model model){
+//        model.addAttribute("issues",issueRepository.getAllIssues());
+//        return model;
+//    }
+//
+//    public Model showIssuesBooksByReaderId(long id,Model model){
+//        List<Issue> issueList = issueRepository.getActiveIssues().stream().filter(it -> Objects.equals(it.getReaderId(), id)).toList();
+//        List<UserFriendlyReaderUI> list = new ArrayList<>();
+//        for (Issue issue : issueList) {
+//            UserFriendlyReaderUI reader = new UserFriendlyReaderUI(issue.getReaderId(),readerRepository.getReaderById(id).getName(),bookRepository.getBookById(issue.getBookId()).getName());
+//            list.add(reader);
+//        }
+//        model.addAttribute("readersWithBooks",list);
+//        return model;
+//    }
 }
