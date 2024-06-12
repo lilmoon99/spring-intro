@@ -52,7 +52,7 @@ public class ReaderController {
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = ReaderEntity.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
+            @ApiResponse(responseCode = "404",description = "Reader not found.", content = {@Content(schema = @Schema())})
     })
     public ReaderEntity getReaderById(@PathVariable long id) {
         return readerService.getById(id);
@@ -77,7 +77,7 @@ public class ReaderController {
             description ="Deletes the reader by :id from the Data Base.")
     @ApiResponses({
             @ApiResponse(responseCode = "200",content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "404",content = {@Content(schema = @Schema())})
+            @ApiResponse(responseCode = "404",description = "Reader not found.",content = {@Content(schema = @Schema())})
     })
     public void deleteReaderById(@PathVariable long id) {
         readerService.deleteReaderById(id);
@@ -89,7 +89,7 @@ public class ReaderController {
     )
     @ApiResponses({
             @ApiResponse(responseCode = "200",content = {@Content(array = @ArraySchema(schema = @Schema(implementation = IssueEntity.class)),mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",content = {@Content(schema = @Schema())})
+            @ApiResponse(responseCode = "404",description = "Reader not found.",content = {@Content(schema = @Schema())})
     })
     @GetMapping("/{id}/issue")
     public List<IssueEntity> getIssuesByReaderId(@PathVariable long id) {
