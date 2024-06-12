@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/book")
-@Tag(name = "Books",description = "API to manage a books.")
+@Tag(name = "Books API",description = "API to manage a books.")
 public class BookController {
     @Autowired
     private final BookServiceImpl service;
@@ -77,7 +77,7 @@ public class BookController {
             description = "Deletes the book from DB by :id."
     )
     @ApiResponses({
-            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = BookEntity.class),mediaType = "application/json")}),
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = BookEntity.class))}),
             @ApiResponse(responseCode = "404",content = {@Content(schema = @Schema())})
     })
     @DeleteMapping("/{id}")
