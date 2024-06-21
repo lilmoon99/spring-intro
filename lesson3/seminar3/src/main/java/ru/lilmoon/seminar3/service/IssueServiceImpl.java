@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lilmoon.seminar3.entity.IssueEntity;
 import ru.lilmoon.seminar3.repository.IssueRepository;
+import ru.lilmoon.seminar3.service.interfaces.IssueService;
 
 import java.util.List;
 @Service
-public class IssueServiceImpl implements IssueService{
+public class IssueServiceImpl implements IssueService {
     @Autowired
     private final IssueRepository repository;
 
