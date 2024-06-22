@@ -13,6 +13,8 @@ import java.util.Objects;
 @Repository
 public interface ReaderRepository extends JpaRepository<ReaderEntity,Long> {
 
+    public ReaderEntity findByName(String name);
+
 //  private final List<Reader> readers;
 //
 //  public ReaderRepository() {

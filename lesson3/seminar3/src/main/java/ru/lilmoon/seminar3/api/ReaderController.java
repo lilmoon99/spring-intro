@@ -67,7 +67,7 @@ public class ReaderController {
             @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())})
     })
     @PostMapping
-    public ReaderEntity addReader(@RequestBody ReaderEntity reader) {
+    public boolean addReader(@RequestBody ReaderEntity reader) {
         return readerService.createReader(reader);
     }
 

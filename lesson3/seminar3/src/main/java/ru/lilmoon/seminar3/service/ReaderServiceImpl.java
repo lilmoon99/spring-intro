@@ -3,23 +3,33 @@ package ru.lilmoon.seminar3.service;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.lilmoon.seminar3.config.CustomPasswordEncoder;
 import ru.lilmoon.seminar3.entity.IssueEntity;
 import ru.lilmoon.seminar3.entity.ReaderEntity;
+import ru.lilmoon.seminar3.model.Role;
 import ru.lilmoon.seminar3.repository.IssueRepository;
 import ru.lilmoon.seminar3.repository.ReaderRepository;
+import ru.lilmoon.seminar3.service.interfaces.ReaderService;
 
 import java.util.List;
+import java.util.Set;
+
 @Service
-public class ReaderServiceImpl implements ReaderService{
+public class ReaderServiceImpl implements ReaderService {
     @Autowired
     private final ReaderRepository repository;
     @Autowired
     private final IssueRepository issueRepository;
+    @Autowired
+    private final PasswordEncoder encoder;
 
-    public ReaderServiceImpl(ReaderRepository repository, IssueRepository issueRepository) {
+    public ReaderServiceImpl(ReaderRepository repository, IssueRepository issueRepository, CustomPasswordEncoder encoder) {
         this.repository = repository;
         this.issueRepository = issueRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -33,8 +43,15 @@ public class ReaderServiceImpl implements ReaderService{
     }
 
     @Override
-    public ReaderEntity createReader(ReaderEntity reader) {
-        return repository.save(reader);
+    public boolean createReader(ReaderEntity reader) {
+        ReaderEntity readerFromDB = repository.findByName(reader.getName());
+        if (readerFromDB != null){
+            return false;
+        }
+        reader.setRole(Role.USER);
+        reader.setPassword(encoder.encode(reader.getPassword()));
+        repository.save(reader);
+        return true;
     }
 
     @Override
@@ -56,12 +73,18 @@ public class ReaderServiceImpl implements ReaderService{
 
     @PostConstruct
     private void initTestData(){
-        String[] names = {"Aynur","Lisa","Nikolay","Mihail"};
+        ReaderEntity reader1 = ReaderEntity.builder()
+                .name("moon")
+                .role(Role.ADMIN)
+                .password("123")
+                .build();
+    repository.save(reader1);
 
-        for (String name : names) {
-            ReaderEntity reader = new ReaderEntity();
-            reader.setName(name);
-            this.createReader(reader);
-        }
+        ReaderEntity reader2 = ReaderEntity.builder()
+                .name("vienne")
+                .role(Role.USER)
+                .password("321")
+                .build();
+        repository.save(reader2);
     }
 }
