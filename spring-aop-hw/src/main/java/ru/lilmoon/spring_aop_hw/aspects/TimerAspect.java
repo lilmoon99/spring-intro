@@ -23,16 +23,18 @@ public class TimerAspect {
     }
 
     @Around("typesAnnotatedWith() || methodsAnnotatedWith()")
-    public void timerAspect(ProceedingJoinPoint joinPoint) {
+    public void timerAspect(ProceedingJoinPoint joinPoint) throws Throwable {
         Level level = extractLevel(joinPoint);
         long start = System.currentTimeMillis();
         try {
+            log.atLevel(level).log("Class name: {}, Method name: {}", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName());
             joinPoint.proceed();
             long finish = System.currentTimeMillis();
             long delta = finish - start;
-            log.atLevel(level).log("\nClass name: {} \nMethod name: {} \nExecution time: {}", joinPoint.getTarget().getClass(), joinPoint.getSignature().getName(), delta);
+            log.atLevel(level).log("Execution time: {}",delta);
         } catch (Throwable e) {
             log.atLevel(level).log("Exception caught: {}", e.getMessage());
+            throw e;
         }
     }
 

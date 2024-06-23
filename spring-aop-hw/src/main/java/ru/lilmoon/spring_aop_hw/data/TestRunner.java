@@ -1,6 +1,5 @@
-package ru.lilmoon.spring_aop_hw.data.task1;
+package ru.lilmoon.spring_aop_hw.data;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -10,12 +9,12 @@ import ru.lilmoon.spring_aop_hw.aspects.TestInterface;
 import java.util.List;
 
 @Component
-public class aspectTestRunner {
+public class TestRunner {
 
     @Autowired
     private final List<TestInterface> tests;
 
-    public aspectTestRunner(List<TestInterface> tests) {
+    public TestRunner(List<TestInterface> tests) {
         this.tests = tests;
     }
 
