@@ -28,4 +28,9 @@ public class BookController {
     public List<Author> getAllAuthors(){
         return service.getAllAuthors();
     }
+
+    @GetMapping("/randomBook")
+    public Book getRandomBook(){
+        return service.getRandomBook();
+    }
 }

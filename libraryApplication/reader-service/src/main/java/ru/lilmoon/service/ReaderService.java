@@ -7,6 +7,8 @@ import ru.lilmoon.enity.Reader;
 import ru.lilmoon.repository.ReaderRepository;
 
 import java.util.List;
+import java.util.Random;
+
 @Service
 public class ReaderService {
 
@@ -20,10 +22,15 @@ public class ReaderService {
         return repository.findAll();
     }
 
+    public Reader getRandomReader(){
+        List<Reader> readers = repository.findAll();
+        return readers.get(new Random().nextInt(readers.size()));
+    }
+
     @PostConstruct
     private void init(){
         Faker faker = new Faker();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 25; i++) {
             Reader reader = new Reader();
             reader.setFirstName(faker.name().firstName());
             reader.setLastName(faker.name().lastName());

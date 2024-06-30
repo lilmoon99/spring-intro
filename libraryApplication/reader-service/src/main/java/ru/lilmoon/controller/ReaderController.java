@@ -23,4 +23,9 @@ public class ReaderController {
     public List<Reader> getAllReaders() {
         return service.getAllReaders();
     }
+
+    @GetMapping("/randomReader")
+    public Reader getRandomReader(){
+        return service.getRandomReader();
+    }
 }

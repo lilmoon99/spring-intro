@@ -10,6 +10,7 @@ import ru.lilmoon.repository.AuthorRepository;
 import ru.lilmoon.repository.BookRepository;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class BookService {
@@ -32,10 +33,15 @@ public class BookService {
         return authorRepository.findAll();
     }
 
+    public Book getRandomBook(){
+        List<Book> books = bookRepository.findAll();
+        return books.get(new Random().nextInt(books.size()));
+    }
+
     @PostConstruct
     private void init(){
         Faker faker = new Faker();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 50; i++) {
             Author author = new Author();
             author.setFirstName(faker.name().firstName());
             author.setLastName(faker.name().lastName());

@@ -25,6 +25,7 @@
         <module>book-service</module>
 		<module>issue-service</module>
 		<module>reader-service</module>
+		<module>discovery-service</module>
 	</modules>
     <scm>
 		<connection/>
@@ -44,6 +45,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
 
 		<dependency>
 			<groupId>com.h2database</groupId>
