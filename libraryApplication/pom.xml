@@ -11,7 +11,8 @@
 	<groupId>ru.lilmoon</groupId>
 	<artifactId>libraryApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>libraryApplication</name>
+    <packaging>pom</packaging>
+    <name>libraryApplication</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -20,7 +21,12 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+    <modules>
+        <module>book-service</module>
+		<module>issue-service</module>
+		<module>reader-service</module>
+	</modules>
+    <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
@@ -42,7 +48,6 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -53,6 +58,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.javafaker</groupId>
+			<artifactId>javafaker</artifactId>
+			<version>0.15</version>
 		</dependency>
 	</dependencies>
 

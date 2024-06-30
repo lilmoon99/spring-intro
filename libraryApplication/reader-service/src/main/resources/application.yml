@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:readerdb
+    username: sa
+    password:
+
+  application:
+    name: reader-service
+
+server:
+  port: 8889
