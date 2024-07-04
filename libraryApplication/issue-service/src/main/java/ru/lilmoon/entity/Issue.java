@@ -5,7 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+import ru.lilmoon.Entities.Book;
+import ru.lilmoon.enity.Reader;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -21,9 +26,14 @@ public class Issue {
     @Column(name = "issueId")
     private UUID issueId;
 
-    @Column(name = "readerId")
-    private UUID readerId;
+    @Column(name = "reader")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Reader reader;
 
-    @Column(name = "bookId")
-    private UUID bookId;
+    @Column(name = "book")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private Book book;
+
+    @Column(name = "issuedDate")
+    private LocalDate issuedDate;
 }
