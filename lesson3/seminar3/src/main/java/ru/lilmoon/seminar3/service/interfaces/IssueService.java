@@ -1,4 +1,4 @@
-package ru.lilmoon.seminar3.service;
+package ru.lilmoon.seminar3.service.interfaces;
 
 import ru.lilmoon.seminar3.entity.IssueEntity;
 

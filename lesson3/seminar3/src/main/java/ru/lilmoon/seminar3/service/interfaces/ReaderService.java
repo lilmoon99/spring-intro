@@ -1,4 +1,4 @@
-package ru.lilmoon.seminar3.service;
+package ru.lilmoon.seminar3.service.interfaces;
 
 import ru.lilmoon.seminar3.entity.ReaderEntity;
 import ru.lilmoon.seminar3.repository.ReaderRepository;
@@ -11,7 +11,7 @@ public interface ReaderService {
 
     ReaderEntity getById(long id);
 
-    ReaderEntity createReader(ReaderEntity reader);
+    boolean createReader(ReaderEntity reader);
 
     ReaderEntity updateReaderById(long id,ReaderEntity reader);
 

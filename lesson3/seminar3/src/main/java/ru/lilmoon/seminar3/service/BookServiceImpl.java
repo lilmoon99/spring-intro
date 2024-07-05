@@ -5,13 +5,13 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lilmoon.seminar3.entity.BookEntity;
-import ru.lilmoon.seminar3.model.Book;
 import ru.lilmoon.seminar3.repository.BookRepository;
+import ru.lilmoon.seminar3.service.interfaces.BookService;
 
 import java.util.List;
 
 @Service
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
     @Autowired
     private final BookRepository repository;
 
