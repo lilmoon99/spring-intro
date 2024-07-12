@@ -1,21 +1,31 @@
 package ru.lilmoon.service;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-//import static org.mockito.Mockito.*;
+import ru.lilmoon.Entities.Author;
+import ru.lilmoon.Entities.Book;
+import ru.lilmoon.Entities.BookAndAuthorGenerator;
+import ru.lilmoon.repository.AuthorRepository;
+import ru.lilmoon.repository.BookRepository;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
+
 class BookServiceTest {
     @Mock
-    ru.lilmoon.repository.BookRepository bookRepository;
+    BookRepository bookRepository;
     @Mock
-    ru.lilmoon.repository.AuthorRepository authorRepository;
+    AuthorRepository authorRepository;
     @Mock
-    ru.lilmoon.Entities.BookAndAuthorGenerator generator;
+    BookAndAuthorGenerator generator;
     @InjectMocks
-    ru.lilmoon.service.BookService bookService;
+    BookService bookService;
 
     @BeforeEach
     void setUp() {
@@ -23,41 +33,45 @@ class BookServiceTest {
     }
 
     @Test
-    void testGetAllBooks(){
-        when(bookRepository.findAll()).thenReturn(java.util.List.of(new T()));
-        when(authorRepository.findAll()).thenReturn(java.util.List.of(new T()));
+    void testGetAllBooks() {
+        when(bookRepository.findAll()).thenReturn(List.of(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName"))));
+        when(authorRepository.findAll()).thenReturn(List.of(new Author(new UUID(0L, 0L), "firstName", "lastName")));
 
-        java.util.List<ru.lilmoon.Entities.Book> result = bookService.getAllBooks();
-        Assertions.assertEquals(java.util.List.of(new ru.lilmoon.Entities.Book(new java.util.UUID(0L, 0L), "title", new ru.lilmoon.Entities.Author(new java.util.UUID(0L, 0L), "firstName", "lastName"))), result);
+        List<Book> result = bookService.getAllBooks();
+        Assertions.assertEquals(List.of(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName"))), result);
     }
 
     @Test
-    void testGetAllAuthors(){
-        when(bookRepository.findAll()).thenReturn(java.util.List.of(new T()));
-        when(authorRepository.findAll()).thenReturn(java.util.List.of(new T()));
+    void testGetAllAuthors() {
+        when(authorRepository.findAll()).thenReturn(List.of(new Author(new UUID(0L, 0L), "firstName", "lastName")));
 
-        java.util.List<ru.lilmoon.Entities.Author> result = bookService.getAllAuthors();
-        Assertions.assertEquals(java.util.List.of(new ru.lilmoon.Entities.Author(new java.util.UUID(0L, 0L), "firstName", "lastName")), result);
+        List<Author> result = bookService.getAllAuthors();
+
+        Assertions.assertEquals(List.of(new Author(new UUID(0L, 0L), "firstName", "lastName")), result);
     }
 
     @Test
-    void testGetRandomBook(){
-        when(bookRepository.findAll()).thenReturn(java.util.List.of(new T()));
-        when(authorRepository.findAll()).thenReturn(java.util.List.of(new T()));
+    void testGetRandomBook() {
+        when(bookRepository.findAll()).thenReturn(List.of(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName"))));
+        when(authorRepository.findAll()).thenReturn(List.of(new Author(new UUID(0L, 0L), "firstName", "lastName")));
 
-        ru.lilmoon.Entities.Book result = bookService.getRandomBook();
-        Assertions.assertEquals(new ru.lilmoon.Entities.Book(new java.util.UUID(0L, 0L), "title", new ru.lilmoon.Entities.Author(new java.util.UUID(0L, 0L), "firstName", "lastName")), result);
+
+        Book result = bookService.getRandomBook();
+        Assertions.assertEquals(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName")), result);
     }
 
     @Test
-    void testCreateBook(){
-        when(bookRepository.findAll()).thenReturn(java.util.List.of(new T()));
-        when(bookRepository.save(any(S.class))).thenReturn(new S());
-        when(authorRepository.findAll()).thenReturn(java.util.List.of(new T()));
-        when(authorRepository.save(any(S.class))).thenReturn(new S());
+    void testCreateBook() {
+        Book book = new Book();
+        book.setTitle("title");
+        book.setAuthor(new Author(new UUID(0L, 0L), "firstName", "lastName"));
 
-        ru.lilmoon.Entities.Book result = bookService.createBook("title", new ru.lilmoon.Entities.Author(new java.util.UUID(0L, 0L), "firstName", "lastName"));
-        Assertions.assertEquals(new ru.lilmoon.Entities.Book(new java.util.UUID(0L, 0L), "title", new ru.lilmoon.Entities.Author(new java.util.UUID(0L, 0L), "firstName", "lastName")), result);
+        when(bookRepository.findAll()).thenReturn(List.of(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName"))));
+        when(bookRepository.save(book)).thenReturn(new Book(new UUID(0L, 0L), "title", new Author(new UUID(0L, 0L), "firstName", "lastName")));
+        when(authorRepository.findAll()).thenReturn(List.of(new Author(new UUID(0L, 0L), "firstName", "lastName")));
+
+        Book result = bookService.createBook("title", new Author(new UUID(0L, 0L), "firstName", "lastName"));
+        Assertions.assertEquals(bookRepository.findAll().stream().findAny().get(), result);
     }
 }
 
