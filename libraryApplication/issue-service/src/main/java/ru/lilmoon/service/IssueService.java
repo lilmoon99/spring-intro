@@ -1,22 +1,22 @@
 package ru.lilmoon.service;
 
 import com.github.javafaker.Faker;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lilmoon.Entities.Book;
-import ru.lilmoon.enity.Reader;
 import ru.lilmoon.entity.Issue;
+import ru.lilmoon.entity.Reader;
 import ru.lilmoon.providers.DataProvider;
 import ru.lilmoon.repository.IssueRepository;
+
 
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
+
 public class IssueService {
     @Autowired
     private DataProvider provider;

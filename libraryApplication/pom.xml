@@ -26,6 +26,7 @@
 		<module>issue-service</module>
 		<module>reader-service</module>
 		<module>discovery-service</module>
+		<module>timer-spring-boot-starter</module>
 	</modules>
     <scm>
 		<connection/>
@@ -76,7 +77,31 @@
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.lilmoon.timer</groupId>
+			<artifactId>timer-spring-boot-starter</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.nickwongdev</groupId>
+			<artifactId>aspectj-maven-plugin</artifactId>
+			<version>1.12.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+		</dependency>
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>${aspectj.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -90,6 +115,19 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.nickwongdev</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>1.12.6</version>
+				<configuration>
+					<weaveDependencies>
+						<weaveDependency>
+							<groupId>com.lilmoon.timer</groupId>
+							<artifactId>timer-spring-boot-starter</artifactId>
+						</weaveDependency>
+					</weaveDependencies>
 				</configuration>
 			</plugin>
 		</plugins>

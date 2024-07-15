@@ -1,5 +1,6 @@
 package ru.lilmoon.controller;
 
+import com.lilmoon.timer.aspect.LogMethodExecTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,23 +23,25 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public ResponseEntity<List<Book>> getAllBooks(){
+    @LogMethodExecTime
+    public ResponseEntity<List<Book>> getAllBooks() {
         return new ResponseEntity<>(service.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/authors")
-    public ResponseEntity<List<Author>> getAllAuthors(){
+    @LogMethodExecTime
+    public ResponseEntity<List<Author>> getAllAuthors() {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(this.service.getAllAuthors());
     }
 
     @GetMapping("/randomBook")
-    public ResponseEntity<Book> getRandomBook(){
+    public ResponseEntity<Book> getRandomBook() {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(this.service.getRandomBook());
     }
 
     @PostMapping("/createBook")
-    public ResponseEntity<Book> createBook(@RequestBody TitleAndAuthorResponse body){
+    public ResponseEntity<Book> createBook(@RequestBody TitleAndAuthorResponse body) {
         Book book = service.createBook(body.getTitle(), body.getAuthor());
-        return new ResponseEntity<>(book,HttpStatus.CREATED);
+        return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 }

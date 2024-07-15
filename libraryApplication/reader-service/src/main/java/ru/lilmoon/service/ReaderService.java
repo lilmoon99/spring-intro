@@ -3,7 +3,7 @@ package ru.lilmoon.service;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
-import ru.lilmoon.enity.Reader;
+import ru.lilmoon.entity.Reader;
 import ru.lilmoon.repository.ReaderRepository;
 
 import java.util.List;

@@ -4,7 +4,8 @@ import org.springframework.cloud.client.loadbalancer.reactive.ReactorLoadBalance
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.lilmoon.Entities.Book;
-import ru.lilmoon.enity.Reader;
+import ru.lilmoon.entity.Reader;
+
 
 @Service
 public class DataProvider {
