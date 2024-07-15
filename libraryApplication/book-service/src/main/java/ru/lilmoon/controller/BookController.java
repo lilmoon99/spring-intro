@@ -1,10 +1,12 @@
 package ru.lilmoon.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.lilmoon.Entities.Author;
 import ru.lilmoon.Entities.Book;
+import ru.lilmoon.responses.TitleAndAuthorResponse;
 import ru.lilmoon.service.BookService;
 
 import java.util.List;
@@ -13,24 +15,30 @@ import java.util.List;
 @RequestMapping("/api")
 public class BookController {
 
-    private BookService service;
+    private final BookService service;
 
     public BookController(BookService service) {
         this.service = service;
     }
 
     @GetMapping("/books")
-    public List<Book> getAllBooks(){
-        return service.getAllBooks();
+    public ResponseEntity<List<Book>> getAllBooks(){
+        return new ResponseEntity<>(service.getAllBooks(), HttpStatus.OK);
     }
 
     @GetMapping("/authors")
-    public List<Author> getAllAuthors(){
-        return service.getAllAuthors();
+    public ResponseEntity<List<Author>> getAllAuthors(){
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(this.service.getAllAuthors());
     }
 
     @GetMapping("/randomBook")
-    public Book getRandomBook(){
-        return service.getRandomBook();
+    public ResponseEntity<Book> getRandomBook(){
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(this.service.getRandomBook());
+    }
+
+    @PostMapping("/createBook")
+    public ResponseEntity<Book> createBook(@RequestBody TitleAndAuthorResponse body){
+        Book book = service.createBook(body.getTitle(), body.getAuthor());
+        return new ResponseEntity<>(book,HttpStatus.CREATED);
     }
 }
