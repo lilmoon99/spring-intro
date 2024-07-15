@@ -1,4 +1,4 @@
-package ru.lilmoon.enity;
+package ru.lilmoon.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

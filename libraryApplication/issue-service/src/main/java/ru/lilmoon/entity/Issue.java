@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import ru.lilmoon.Entities.Book;
-import ru.lilmoon.enity.Reader;
 
 import java.time.LocalDate;
 import java.util.UUID;
